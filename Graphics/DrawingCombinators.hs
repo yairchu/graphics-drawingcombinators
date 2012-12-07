@@ -381,7 +381,7 @@ data Font = Font { getFont :: FTGL.Font }
 
 renderText :: Font -> String -> IO ()
 renderText font str = do
-    GL.scale (1/36 :: GL.GLdouble) (1/36) 1
+    GL.scale (1/9 :: GL.GLdouble) (1/9) 1
     FTGL.renderFont (getFont font) str FTGL.All
 
 -- | Load a TTF font from a file.
@@ -389,13 +389,13 @@ openFont :: String -> IO Font
 openFont path = do
     font <- FTGL.createTextureFont path
     addFinalizer font (FTGL.destroyFont font)
-    _ <- FTGL.setFontFaceSize font 72 72
+    _ <- FTGL.setFontFaceSize font 18 18
     return $ Font font
 
 -- | @textWidth font str@ is the width of the text in @text font str@.
 textWidth :: Font -> String -> R
 textWidth font str =
-  (/36) . realToFrac . unsafePerformIO $
+  (/9) . realToFrac . unsafePerformIO $
   FTGL.getFontAdvance (getFont font) str
 
 #endif
